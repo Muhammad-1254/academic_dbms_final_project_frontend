@@ -3,7 +3,13 @@ import Cookie from 'js-cookie'
 import { ArtObjectType, Role } from "../types";
 
 
-const domainName = "http://localhost:8000"
+function domainName(){
+  if (process.env.NODE_ENV === 'development') {
+    return "http://localhost:8000"
+  }
+  return process.env.SERVER_DOMAIN_NAME
+
+}
 
 export function getCookie() {
   try {
@@ -27,7 +33,7 @@ export async function loginUserApiFunction(
   password: string,
   role: string
 ) {
-  const res = await axios.post(`${domainName}/api/v1/user/login`, {
+  const res = await axios.post(`${domainName()}/api/v1/user/login`, {
     email,
     password,
     role,
@@ -43,7 +49,7 @@ export async function signupUserApiFunction(
   password: string,
   role: string
 ) {
-  const res = await axios.post(`${domainName}/api/v1/user/signup`, {
+  const res = await axios.post(`${domainName()}/api/v1/user/signup`, {
     username,
     email,
     password,
@@ -65,7 +71,7 @@ export async function getAllExhibitionsApiFunction(
     sortByTitle:boolean=true,
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/exhibitions/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/exhibitions/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
   return res.data;
 }
 
@@ -74,7 +80,7 @@ export async function getAllExhibitionsIdsApiFunction(
 
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/exhibitions/all/ids`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/exhibitions/all/ids`);
   return res.data;
 }
 
@@ -83,7 +89,7 @@ export async function getExhibitionsByIdApiFunction(
   exhibitionId:string
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/exhibitions/art_object/${exhibitionId}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/exhibitions/art_object/${exhibitionId}`);
   return res.data;
 }
 
@@ -94,36 +100,60 @@ export async function getExhibitionsArtObjectApiFunction(
 
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/exhibitions/art_object/${exhibitionId}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/exhibitions/art_object/${exhibitionId}`);
   return res.data;
 }
 
 
 
 export async function getAllArtistApiFunction(
-skip: number=0,
-limit: number=10
+  sort_by_dob: boolean = false,
+  sort_by_name: boolean= true,
+  skip: number = 0,
+  limit: number = 10,
 ) {
-  const res = await axios.get(`${domainName}/api/v1/museum/get/artist/all/${skip}/${limit}`);
+
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/artist/all/${skip}/${limit}?sort_by_dob=${sort_by_dob}&sort_by_name=${sort_by_name}`);
   
   return res.data;
   }
 
-  // get artist by id
   
 // get all exhibitions ids
 export async function getAllArtistsIdsApiFunction(
 
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/exhibitions/all/ids`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/exhibitions/all/ids`);
   return res.data;
 }
 
 export async function getArtistByIdApiFunction(
   id:string
   ) {
-    const res = await axios.get(`${domainName}/api/v1/museum/get/artist/id/${id}`);
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/artist/id/${id}`);
+    
+    return res.data;
+    }
+
+
+    
+export async function getArtistsIdApiFunction(
+  ) {
+
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/artist/all/ids`);
+    
+    return res.data;
+    }
+
+
+    
+export async function getArtistArtObjectByIdApiFunction(
+  id:string
+  ) {
+
+
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/artist/all/${id}`);
     
     return res.data;
     }
@@ -137,7 +167,7 @@ export async function getArtistByIdApiFunction(
     sortByDate:boolean=true,
     sortByTitle:boolean=true,
   ) {
-    const res = await axios.get(`${domainName}/api/v1/museum/get/art_object/sculpture/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/sculpture/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
     return res.data;
   }
 
@@ -149,7 +179,7 @@ export async function getArtistByIdApiFunction(
   )
    {
 
-    const res = await axios.get(`${domainName}/api/v1/museum/get/art_object/painting/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/painting/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
     return res.data;
   }
 
@@ -159,7 +189,7 @@ export async function getArtistByIdApiFunction(
     sortByDate:boolean=true,
     sortByTitle:boolean=true,
   ) {
-    const res = await axios.get(`${domainName}/api/v1/museum/get/art_object/other_art/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
+    const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/other_art/all/${skip}/${limit}?sort_data_asc=${sortByDate}&sort_data_title=${sortByTitle}`);
     return res.data;
   }
 
@@ -170,7 +200,7 @@ export async function getAllArtObjectSlugsApiFunction(
   artObjectType:ArtObjectType
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/art_object/id/all?object_type=${artObjectType}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/id/all?object_type=${artObjectType}`);
   return res.data;
 }
 
@@ -182,7 +212,7 @@ export async function searchArtObjectByNameApiFunction(
   artObjectType:ArtObjectType
 ) {
 
-  const res = await axios.get(`${domainName}/api/v1/museum/get/paintings/name/?painting_name=${name}&art_object_type=${artObjectType}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/paintings/name/?painting_name=${name}&art_object_type=${artObjectType}`);
   return res.data;
 }
 
@@ -194,7 +224,7 @@ export async function getArtObjectByIdAndTypeApiFunction(
   object_type:ArtObjectType
 ) {
   
-  const res = await axios.get(`${domainName}/api/v1/museum/get/art_object/?object_type=${object_type}&art_object_id=${id}`);
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/?object_type=${object_type}&art_object_id=${id}`);
   return res.data;
 }
 

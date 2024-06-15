@@ -21,9 +21,7 @@ const page = async ({ params }: { params: { slug: string } }) => {
       ? JSON.parse(exhibition.image)
       : null;
 
-  if (typeof data == "undefined") {
-    return <div>loading...</div>;
-  }
+  
   return (
     <div className="w-full flex flex-col items-center mt-10 ">
       <div className="w-full flex flex-col md:flex-row items-center md:justify-center md:flex-wrap gap-2 mx-auto ">

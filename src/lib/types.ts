@@ -47,3 +47,9 @@ export type TMixArtObjects = {
   image:string
   
 }[];
+
+export type TArtistArtObjects ={
+  artist:TArtist,
+  art_objects:TMixArtObjects
+}
+

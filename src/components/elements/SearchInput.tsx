@@ -22,6 +22,7 @@ type TPaintingData = Modify<
 
 interface ISearchInput{
   artObjectType:ArtObjectType
+  
 }
 
 const SearchInput:React.FC<ISearchInput> = ({artObjectType}) => {
