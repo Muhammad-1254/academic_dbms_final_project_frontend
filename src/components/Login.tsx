@@ -42,7 +42,7 @@ export default function Login() {
           setIsSubmit(true);
           const res = await loginUserApiFunction(email, password, role);
           console.log(res);
-
+          
           dispatch(
             setUser({
               userId: res.userId,
@@ -51,6 +51,7 @@ export default function Login() {
               isLogin: true,
               isAuth: res.isAuth,
               role: res.role,
+              profileImage:res.profileImage
             })
           );
           const user_credentials = {
@@ -101,7 +102,7 @@ export default function Login() {
   
 
   return (
-    <Dialog>
+    <Dialog >
       <DialogTrigger asChild>
         <Button variant="outline">LogIn</Button>
       </DialogTrigger>

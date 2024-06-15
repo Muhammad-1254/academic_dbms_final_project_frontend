@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import StoreProvider from "@/providers/StoreProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import Navbar from "@/components/Navbar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={cn("font-sans antialiased", fontSans.variable)}>
-        <main className=" mx-auto  flex max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg  xl:max-w-screen-2xl">
+        <main className=" mx-auto  flex flex-col max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg  xl:max-w-screen-2xl">
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"
@@ -32,7 +33,11 @@ export default function RootLayout({
           >
             <StoreProvider>
               <Toaster />
-              <>{children}</>
+
+          <Navbar />
+              <>
+              
+              {children}</>
             </StoreProvider>
           </ThemeProvider>
         </main>

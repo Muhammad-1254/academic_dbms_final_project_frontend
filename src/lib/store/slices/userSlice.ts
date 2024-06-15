@@ -6,7 +6,8 @@ type userSlice = {
   username: string | null;
   isAuth: Boolean;
   isLogin: Boolean;
-  role:Role
+  role:Role;
+  profileImage:string
 };
 
 const userSliceInitial: userSlice = {
@@ -15,7 +16,8 @@ const userSliceInitial: userSlice = {
   username: null,
   isAuth: false,
   isLogin: false,
-  role:Role.USER
+  role:Role.USER,
+  profileImage:"https://github.com/shadcn.png"
 };
 
 export const userSlice = createSlice({
@@ -27,6 +29,8 @@ export const userSlice = createSlice({
       state.value.email = action.payload.email;
       state.value.username = action.payload.username;
       state.value.isLogin = action.payload.isLogin;
+      state.value.profileImage = action.payload.profileImage;
+
 
     },
     setIsAuth: (state, action) => {
