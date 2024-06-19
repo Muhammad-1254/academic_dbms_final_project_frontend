@@ -42,7 +42,7 @@ const Components = () => {
       }
     }
     getData();
-  }, [fetch_, limit, skip, sortByDate, sortByTitle]);
+  }, [fetch_, sortByDate, sortByTitle]);
 
   return (
     <div>

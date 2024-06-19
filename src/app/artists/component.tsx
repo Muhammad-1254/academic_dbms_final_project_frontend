@@ -39,7 +39,7 @@ const Component = () => {
     }
 
     getArtists();
-  }, [fetch_, skip, limit, sortName, sortDob]);
+  }, [fetch_, sortName, sortDob]);
   function handleOnClick(id:string, event:any){
     setModelPath({x:event.pageX, y:event.pageY,id:id, showMode:true})
   }
