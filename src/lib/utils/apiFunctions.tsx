@@ -7,7 +7,7 @@ function domainName(){
   if (process.env.NODE_ENV === 'development') {
     return "http://localhost:8000"
   }
-  return process.env.SERVER_DOMAIN_NAME
+  return "https://muhammad-1254-dbms-project.hf.space"
 
 }
 
