@@ -9,7 +9,7 @@ const Artist = () => {
       try {
         const res = await getAllArtistApiFunction();
         const data =res.data
-        console.log({ data });
+        // console.log({ data });
       } catch (error) {
         console.log({error})
 

@@ -24,8 +24,8 @@ const imageUrl:string|null =data.other && JSON.parse(data.other.image).length>=1
 const type :string|null =data.other && data.other.type?data.other.type : null;
 
 const artist:TArtist = (await getArtistByIdApiFunction(data.artist_id)).data
-console.log(({artist}))
-    console.log({params})
+// console.log(({artist}))
+    // console.log({params})
 if (typeof data =='undefined'){
   return <div>loading...</div>
 }
@@ -98,7 +98,7 @@ export default page
 export const generateStaticParams = async () => {
   const res = await getAllArtObjectSlugsApiFunction(ArtObjectType.OTHER)
   const slugs = res.data;
-  console.log("slugs ",slugs[0]);
+  // console.log("slugs ",slugs[0]);
   return slugs
 };
 

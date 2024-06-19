@@ -1,17 +1,14 @@
 import HomePage from "@/components/HomePage";
-import { getAllExhibitionsApiFunction, getAllOtherArtApiFunction, getAllPaintingApiFunction, getAllSculptureApiFunction, getExhibitionsArtObjectApiFunction } from "@/lib/utils/apiFunctions";
+import { getHomePageDataApiFunction } from "@/lib/utils/apiFunctions";
 
-
+export const revalidate = 3600 *24 
 const Home =async () => {
 
-  const paintingRes = await getAllPaintingApiFunction(0, 10,true, false);
-  const sculptureRes = await getAllSculptureApiFunction(0, 10);
-  const otherArtRes = await getAllOtherArtApiFunction(0, 10);
-  const exhibitionsData = await getAllExhibitionsApiFunction(0,10, true, true);
-  console.log({exhibitionsData})
+  const data = (await getHomePageDataApiFunction()).data
+
   return (
     <>
-    <HomePage exhibitionsData={exhibitionsData.data} paintingData={paintingRes.data} sculptureData={sculptureRes.data} otherArtData={otherArtRes.data} />
+    <HomePage exhibitionsData={data.exhibition_data} paintingData={data.painting_data} sculptureData={data.sculpture_data} otherArtData={data.other_data} />
     </>
   );
 };

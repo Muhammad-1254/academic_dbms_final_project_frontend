@@ -46,7 +46,6 @@ const Painting:React.FC<IPaintingData> = ({paintingData}) => {
         setLoading(false);
       }
     }
-      console.log("paint len: ",paintingData.length)
       getData();
   }, [paintingData]);
 

@@ -9,14 +9,14 @@ import Component from "./component";
 import { Separator } from "@/components/ui/separator";
 
 const page = async ({ params }: { params: { slug: string } }) => {
-  console.log({ params });
+  // console.log({ params });
 
   const res: TArtistArtObjects = await getArtistArtObjectByIdApiFunction(
     params.slug
   );
   const artist = res.artist;
   const artObjects = res.art_objects;
-  console.log("artObjects ");
+  // console.log("artObjects ");
   return (
     <div className="w-full flex flex-col items-center mt-10 ">
       <Separator />

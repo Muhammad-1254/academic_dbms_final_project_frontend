@@ -34,7 +34,6 @@ const SearchInput:React.FC<ISearchInput> = ({artObjectType}) => {
     try {
       setLoading(true);
       const res = await searchArtObjectByNameApiFunction(q, artObjectType);
-      console.log(res.data);
       setResult(res.data);
       setLoading(false);
     } catch (error: any) {

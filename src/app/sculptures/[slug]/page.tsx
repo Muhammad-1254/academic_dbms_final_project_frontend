@@ -46,8 +46,8 @@ const page = async ({ params }: { params: { slug: string } }) => {
     data.sculpture && data.sculpture.weight ? data.sculpture.weight : null;
 
   const artist: TArtist = (await getArtistByIdApiFunction(data.artist_id)).data;
-  console.log({ artist });
-  console.log({ params });
+  // console.log({ artist });
+  // console.log({ params });
   if (typeof data == "undefined") {
     return <div>loading...</div>;
   }
@@ -149,7 +149,7 @@ export default page;
 export const generateStaticParams = async () => {
   const res = await getAllArtObjectSlugsApiFunction(ArtObjectType.SCULPTURE);
   const slugs = res.data;
-  console.log("slugs ", slugs[0]);
+  // console.log("slugs ", slugs[0]);
   return slugs;
 };
 

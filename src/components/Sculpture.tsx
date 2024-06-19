@@ -54,7 +54,6 @@ const Sculpture:React.FC<ISculpture> = ({sculptureData}) => {
   }, [sculptureData]);
 
 
-  console.log({ imageList });
   if (loading)
     return (
       <div className="w-full h-full flex items-center justify-center ">

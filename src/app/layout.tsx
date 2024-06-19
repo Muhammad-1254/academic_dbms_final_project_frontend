@@ -6,6 +6,7 @@ import StoreProvider from "@/providers/StoreProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/Navbar";
+import LoginProvider from "@/providers/loginProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -33,11 +34,13 @@ export default function RootLayout({
           >
             <StoreProvider>
               <Toaster />
+<LoginProvider>
 
           <Navbar />
               <>
               
               {children}</>
+</LoginProvider>
             </StoreProvider>
           </ThemeProvider>
         </main>

@@ -1,25 +1,17 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, } from "@/components/ui/card";
 import { TArtist } from "@/lib/types";
 import { getAllArtistApiFunction } from "@/lib/utils/apiFunctions";
-import  { useEffect, useState } from "react";
+import  { useEffect, useState, lazy, Suspense } from "react";
 
-import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
+
   import { Button } from "@/components/ui/button";
   import { Label } from "@/components/ui/label";
   import { Input } from "@/components/ui/input";
   import { Separator } from "@/components/ui/separator";
   import { useRouter } from "next/navigation";
   
+const ArtistTable = lazy(()=>import("./ArtistTable"))
 const Component = () => {
     const router = useRouter ()
   const [artistData, setArtistData] = useState<TArtist[]>([]);
@@ -47,7 +39,7 @@ const Component = () => {
     }
 
     getArtists();
-  }, [fetch_]);
+  }, [fetch_, skip, limit, sortName, sortDob]);
   function handleOnClick(id:string, event:any){
     setModelPath({x:event.pageX, y:event.pageY,id:id, showMode:true})
   }
@@ -70,6 +62,8 @@ router.push(`/artists/${modelPath.id}`)
             <Button variant={"secondary"} onClick={()=>setModelPath({...modelPath, showMode:false})}>X</Button>
           </div>
         </Card>
+        {isLoading?<div>Loading...</div>:
+        
     <div className="w-[98%] md:w-[95%] lg:w-[92%] mx-auto mt-14 md:mt-20 ">
      
      
@@ -127,7 +121,7 @@ router.push(`/artists/${modelPath.id}`)
 
           <Button
             variant={"default"}
-            disabled={fetch_}
+            disabled={isLoading}
             onClick={() => setFetch(true)}
           >
             Fetch
@@ -136,60 +130,11 @@ router.push(`/artists/${modelPath.id}`)
       </div>
       <Separator />
 
-      <div>
-        <Table>
-          <TableCaption>A list of Artist.</TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="">Name</TableHead>
-              <TableHead>Bio</TableHead>
-              <TableHead>Desc</TableHead>
-              <TableHead className="">Gender</TableHead>
-              <TableHead className="">DOB</TableHead>
-              <TableHead className="">DOD</TableHead>
-              <TableHead className="">Country</TableHead>
-
-              <TableHead>ULAN</TableHead>
-              <TableHead>WIKI</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {artistData.map(
-              (
-                {
-                  artist_bio,
-                  name,
-                  date_of_birth,
-                  date_of_died,
-                  description,
-                  gender,
-                  id,
-                  origin_country,
-                  ulan,
-                  wiki_qid,
-                },
-                _
-              ) => (
-                <TableRow key={_} onClick={(e)=>handleOnClick(id, e)}>
-                  <TableCell className="font-medium capitalize">{name}</TableCell>
-                  <TableCell className="capitalize">{artist_bio}</TableCell>
-                  <TableCell>{description}</TableCell>
-                  <TableCell className="capitalize">{gender}</TableCell>
-
-                  <TableCell className="">{date_of_birth}</TableCell>
-                  <TableCell className="">{date_of_died}</TableCell>
-                  <TableCell className="capitalize">{origin_country}</TableCell>
-
-                  <TableCell>{ulan}</TableCell>
-                  <TableCell>{wiki_qid}</TableCell>
-                </TableRow>
-              )
-            )}
-            <Separator />
-          </TableBody>
-        </Table>
-      </div>
+     <Suspense fallback={<div>Loading...</div>}>
+     <ArtistTable artistData={artistData} handleOnClick={handleOnClick}/>
+     </Suspense>
     </div>
+}
     </>
 
   );
@@ -198,3 +143,4 @@ router.push(`/artists/${modelPath.id}`)
 export default Component;
 
 
+ 

@@ -13,10 +13,9 @@ function domainName(){
 
 export function getCookie() {
   try {
-    const coo = Cookie.get("user_credentials");
-
-    if (coo) {
-      const user_credentials = JSON.parse(coo);
+    const cookie = Cookie.get("user_credentials");
+    if (cookie) {
+      const user_credentials = JSON.parse(cookie);
       return user_credentials;
     } else {
       return false;
@@ -38,7 +37,7 @@ export async function loginUserApiFunction(
     password,
     role,
   });
-  console.log({res})
+  // console.log({res})
   
   return res.data;
 }
@@ -56,7 +55,7 @@ export async function signupUserApiFunction(
     role,
   });
  
-  return res.data.data;
+  return res.data;
 }
 
 
@@ -227,4 +226,18 @@ export async function getArtObjectByIdAndTypeApiFunction(
   const res = await axios.get(`${domainName()}/api/v1/museum/get/art_object/?object_type=${object_type}&art_object_id=${id}`);
   return res.data;
 }
+
+
+
+
+export async function getHomePageDataApiFunction(
+
+) {
+  
+  const res = await axios.get(`${domainName()}/api/v1/museum/get/homepage/data`);
+  return res.data;
+}
+
+
+
 

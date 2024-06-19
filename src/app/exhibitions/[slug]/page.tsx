@@ -66,7 +66,7 @@ export default page;
 export const generateStaticParams = async () => {
   const res = await getAllExhibitionsIdsApiFunction();
   const slugs = res.data;
-  console.log("slugs ", slugs[0]);
+  // console.log("slugs ", slugs[0]);
   return slugs;
 };
 

@@ -16,6 +16,8 @@ import { loginUserApiFunction, signupUserApiFunction } from "@/lib/utils/apiFunc
 import { useDispatch } from "react-redux";
 import { setUser } from "@/lib/store/slices/userSlice";
 import Cookie from "js-cookie";
+import { Axios, AxiosError } from "axios";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -26,12 +28,13 @@ export default function Login() {
   const [type, setType] = useState(Type.LOGIN);
   const dispatch = useDispatch();
   const { toast } = useToast();
+const user = useAppSelector(state=>state.userReducer.value)
 
    async function submitHandler() {
-    console.log("submitHandler");
+    // console.log("submitHandler");
     try {
       if (Type.LOGIN == type) {
-        console.log("login type");
+        // console.log("login type");
         // if (email.length <= 7 || password.length <= 7) {
         if (email.length == 0 || password.length == 0) {
           toast({
@@ -41,29 +44,31 @@ export default function Login() {
         } else {
           setIsSubmit(true);
           const res = await loginUserApiFunction(email, password, role);
-          console.log(res);
+          // console.log(res);
           
           dispatch(
             setUser({
-              userId: res.userId,
-              email: res.email,
-              username: res.username,
+              userId: res.data.userId,
+              email: res.data.email,
+              username: res.data.username,
               isLogin: true,
-              isAuth: res.isAuth,
-              role: res.role,
-              profileImage:res.profileImage
+              isAuth: res.data.isAuth,
+              role: res.data.role,
             })
           );
           const user_credentials = {
-            email: res.email,
+            email: res.data.email,
             password: password,
-            role: res.role,
+            role: res.data.role,
           };
+
           Cookie.set("user_credentials", JSON.stringify(user_credentials));
           setIsSubmit(false);
+          toast({title:res.message})
         }
+        
       }else if (Type.SIGNUP == type){
-        console.log("signup type");
+        // console.log("signup type");
         if (username.length == 0|| email.length == 0 || password.length == 0) {
           toast({
             title: "Kindly add all fields",
@@ -72,28 +77,34 @@ export default function Login() {
         } else {
           setIsSubmit(true);
           const res = await signupUserApiFunction(username, email, password, role);
-          console.log(res);
+          // console.log(res);
 
           dispatch(
             setUser({
-              userId: res.userId,
-              email: res.email,
-              username: res.username,
+              userId: res.data.userId,
+              email: res.data.email,
+              username: res.data.username,
               isLogin: true,
-              isAuth: res.isAuth,
-              role: res.role,
+              isAuth: res.data.isAuth,
+              role: res.data.role,
             })
           );
           const user_credentials = {
-            email: res.email,
+            email: res.data.email,
             password: password,
-            role: res.role,
+            role: res.data.role,
           };
           Cookie.set("user_credentials", JSON.stringify(user_credentials));
           setIsSubmit(false);
+          toast({title:res.message})
       }}
-    } catch (error) {
+    } catch (error:any) {
       console.log({ error });
+      if(error.request != 500){
+        toast({ 
+          title:error.response.data.message,
+        });
+      }
       setIsSubmit(false);
     }
   }

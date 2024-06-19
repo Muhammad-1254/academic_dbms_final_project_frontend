@@ -30,7 +30,7 @@ const Navbar = () => {
         {isLogin ? <ProfileAvatar /> : <Login />}
       </nav>
       <nav className="flex md:hidden">
-        <ProfileAvatar />
+      {isLogin ? <ProfileAvatar /> : <Login />}
       </nav>
     </header>
   );

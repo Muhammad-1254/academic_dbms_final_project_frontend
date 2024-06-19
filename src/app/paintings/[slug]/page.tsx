@@ -27,8 +27,8 @@ const imageUrl:string|null =data.painting && JSON.parse(data.painting.image).len
 const drawnOn :string|null =data.painting && data.painting.drawn_on?data.painting.drawn_on  : null;
 const paintType :string|null =data.painting && data.painting.paint_type?data.painting.paint_type  : null;
 const artist:TArtist = (await getArtistByIdApiFunction(data.artist_id)).data
-console.log(({artist}))
-    console.log({params})
+// console.log(({artist}))
+    // console.log({params})
 if (typeof data =='undefined'){
   return <div>loading...</div>
 }
@@ -102,7 +102,7 @@ export default page
 export const generateStaticParams = async () => {
   const res = await getAllArtObjectSlugsApiFunction(ArtObjectType.PAINTING)
   const slugs = res.data;
-  console.log("slugs ",slugs[0]);
+  // console.log("slugs ",slugs[0]);
   return slugs
 };
 

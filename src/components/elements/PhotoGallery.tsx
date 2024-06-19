@@ -86,7 +86,7 @@ export default function PhotoGallery({
     photo: TImageList;
     imageProps: any;
   }) => (
-    <div
+    <div className="cursor-pointer"
       // onMouseEnter={(event) => handlePhotoHover(event, photo)}
       onClick={(event) => handlePhotoClick(event, photo)}
     >

@@ -41,8 +41,8 @@ interface IComponent {
       sortData();
       
     }, [data]);
-    console.log({data})
-  console.log({imageList})
+    // console.log({data})
+  // console.log({imageList})
   
     return  <PhotoGallery
     imageList={imageList}

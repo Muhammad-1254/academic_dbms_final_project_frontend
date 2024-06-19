@@ -29,7 +29,7 @@ export const userSlice = createSlice({
       state.value.email = action.payload.email;
       state.value.username = action.payload.username;
       state.value.isLogin = action.payload.isLogin;
-      state.value.profileImage = action.payload.profileImage;
+      
 
 
     },
@@ -39,8 +39,11 @@ export const userSlice = createSlice({
     setIsLogin: (state, action) => {
       state.value.isLogin = action.payload;
     },
+    setProfileImage: (state, action) => {
+      state.value.profileImage = action.payload;
+    }
   },
 });
 
 export default userSlice.reducer;
-export const { setIsAuth, setUser, setIsLogin } = userSlice.actions;
+export const { setIsAuth, setUser, setIsLogin, setProfileImage } = userSlice.actions;

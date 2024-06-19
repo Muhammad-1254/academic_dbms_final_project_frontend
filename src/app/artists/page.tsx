@@ -1,4 +1,3 @@
-import { getAllArtistApiFunction } from '@/lib/utils/apiFunctions'
 import React from 'react'
 import Component from './component'
 
