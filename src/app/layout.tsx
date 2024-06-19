@@ -6,7 +6,7 @@ import StoreProvider from "@/providers/StoreProvider";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import Navbar from "@/components/Navbar";
-import LoginProvider from "@/providers/loginProvider";
+import LoginProvider from "@/providers/LoginProvider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
